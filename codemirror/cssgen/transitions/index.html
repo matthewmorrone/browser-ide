@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" class=" -webkit-">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Animatable: One property, two values, endless possiblities</title>
+<style>
+* {
+	margin: 0;
+}
+
+body {
+	padding: 1em 5em;
+	font: 1em/1.5em Futura, 'Century Gothic', sans-serif;
+	text-align: center;
+	overflow-x: hidden;
+}
+
+hgroup > h1 {
+	font-size: 500%;
+	line-height: 1;
+	text-transform: lowercase;
+}
+
+hgroup > h2 {
+	font-size: 120%;
+}
+
+a {
+	text-decoration: none;
+	color: slategray;
+}
+
+div[role="main"] {
+	padding: 2em .5em;
+	counter-reset: demo;
+}
+
+div[role="main"]:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+	a[data-property] {
+		position: relative;
+		float: left;
+		width: 150px;
+		height: 150px;
+		box-sizing: border-box;
+		margin: 0 15px 30px;
+		background: slategray;
+		color: white;
+		font-size: 60px;
+		line-height: 150px;
+		text-align: center;
+		counter-increment: demo;
+	}
+	
+	body.in-page a[data-property]:not(:target) {
+		opacity: .2 !important;
+	}
+	
+	#on-hover:checked ~ div[role="main"] > a[data-property]:not(:hover):not(:target),
+	body.in-page a[data-property]:not(:target) {
+		-webkit-animation: none !important;
+	}
+	
+		a[data-property]:after {
+			content: attr(data-property);
+			position: absolute;
+			right: 0;
+			left: 0;
+			bottom: -1.2em;
+			z-index: 2;
+			color: slategray;
+			font-size: 14px;
+			line-height: 1;
+			text-indent: 0;
+			text-shadow: none;
+			letter-spacing: 0;
+		}
+	
+		a[data-property]:before {
+			content: counter(demo);
+		}
+	
+input[type="radio"] {
+	position: absolute;
+	clip: rect(0,0,0,0);
+}
+
+input[type="radio"] + label {
+	display: inline-block;
+	padding: .3em .7em;
+	border: 1px solid rgba(0,0,0,.3);
+	margin-top: 1em;
+	background: #809070;
+	color: white;
+	text-shadow: .05em .05em .2em rgba(0,0,0,.8);
+	cursor: pointer;
+	border-radius: .3em;
+	box-shadow: 0 1px rgba(255,255,255,.6) inset;
+}
+
+input[type="radio"]:not(:checked) + label {
+	background-image: -webkit-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+}
+
+input[type="radio"]:checked + label {
+	box-shadow: .05em .05em .4em .1em rgba(0,0,0,.8) inset;
+}
+
+.in-page input[type="radio"] + label {
+	display: none;
+}
+
+#info {
+	position: absolute;
+	z-index: 2;
+	width: 510px;
+	height: 150px;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: black;
+	color: white;
+	text-align: left;
+	-webkit-transition:.5s;
+}
+
+.home > #info {
+	display: none;
+}
+	
+	#info h1 {
+		color: slategray;
+		margin-bottom: .3em;
+	}
+	
+	#info > a {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 2em;
+		line-height: 2;
+		font-size: 80%;
+		background: rgba(255,255,255,.25);
+		color: black;
+		text-align: center;
+		border-radius: 0 50% 50% 0;
+	}
+	
+	#info > a:hover {
+		background: #809070;
+	}
+	
+	#info > a[title="Previous"] {
+		right: 36px;
+		border-radius: 50% 0 0 50%;
+	}
+
+	dl {
+		font-size: 80%;
+	}
+	
+	dl:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	
+		dt {
+			float: left;
+			clear: left;
+			width: 6em;
+			color: gray;
+		}
+		
+		dd {
+			float: left;
+			clear: right;
+			white-space: nowrap;
+		}
+		
+			dd > a {
+				color: inherit;
+			}
+			
+				dd > a > img {
+					margin-right: 5px;
+					vertical-align: -8px;
+					border-radius: 12px;
+				}
+				
+.twitter-share-button {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+}
+
+.github-ribbon {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+</style>
+<script src="prefixfree.js"></script>
+<style>
+@-webkit-keyframes background-color{
+from{background-color:slategray}
+to{background-color:black}}
+#background-color { -webkit-animation: background-color 1s infinite alternate;background-color:slategray}
+@-webkit-keyframes background-position{
+from{background-position:0 0}
+to{background-position:100% 100%}}
+#background-position { -webkit-animation: background-position 1s infinite alternate;background-position:0 0}
+@-webkit-keyframes background-position-2{
+from{background-position:3px 0, 3px 0, 15px -150px, 15px -150px}
+to{background-position:3px -70px, 3px -70px, 15px -80px, 15px -80px}}
+#background-position\/2 { -webkit-animation: background-position-2 1s infinite alternate;background-position:3px 0, 3px 0, 15px -150px, 15px -150px}
+@-webkit-keyframes background-size{
+from{background-size:5px 5px}
+to{background-size:150px 150px}}
+#background-size { -webkit-animation: background-size 1s infinite alternate;background-size:5px 5px}
+@-webkit-keyframes border-radius{
+from{border-radius:0}
+to{border-radius:50%}}
+#border-radius { -webkit-animation: border-radius 1s infinite alternate;border-radius:0}
+@-webkit-keyframes border-radius-2{
+from{border-radius:0 100%}
+to{border-radius:100% 0}}
+#border-radius\/2 { -webkit-animation: border-radius-2 1s infinite alternate;border-radius:0 100%}
+@-webkit-keyframes border-width{
+from{border-width:0}
+to{border-width:75px}}
+#border-width { -webkit-animation: border-width 1s infinite alternate;border-width:0}
+@-webkit-keyframes border-width-2{
+from{border-width:0}
+to{border-width:35px}}
+#border-width\/2 { -webkit-animation: border-width-2 1s infinite alternate;border-width:0}
+@-webkit-keyframes border-width-3{
+from{border-width:0}
+to{border-width:75px}}
+#border-width\/3 { -webkit-animation: border-width-3 1s infinite alternate;border-width:0}
+@-webkit-keyframes box-shadow{
+from{box-shadow:0 0 black}
+to{box-shadow:0 150px 10px -50px rgba(0,0,0,.5)}}
+#box-shadow { -webkit-animation: box-shadow 1s infinite alternate;box-shadow:0 0 black}
+@-webkit-keyframes box-shadow-2{
+from{box-shadow:none}
+to{box-shadow:inset -75px -75px 400px #000}}
+#box-shadow\/2 { -webkit-animation: box-shadow-2 1s infinite alternate;box-shadow:none}
+@-webkit-keyframes box-shadow-3{
+from{box-shadow:inset 0 0 75px 75px slategray, 0 0 0 slategray}
+to{box-shadow:inset 0 0 35px 35px transparent, 0 0 75px 50px transparent}}
+#box-shadow\/3 
+{ 
+	-webkit-animation: box-shadow-3 1s infinite alternate;box-shadow:inset 0 0 75px 75px slategray, 0 0 0 slategray
+}
+@-webkit-keyframes color
+{
+from{color:white}
+to{color:black}}
+#color { -webkit-animation: color 1s infinite alternate;color:white}
+@-webkit-keyframes font-size{
+from{font-size:60px}
+to{font-size:300px}}
+#font-size { -webkit-animation: font-size 1s infinite alternate;font-size:60px}
+@-webkit-keyframes height{
+from{height:150px}
+to{height:0}}
+#height { -webkit-animation: height 1s infinite alternate;height:150px}
+@-webkit-keyframes letter-spacing{
+from{letter-spacing:0}
+to{letter-spacing:100px}}
+#letter-spacing { -webkit-animation: letter-spacing 1s infinite alternate;letter-spacing:0}
+@-webkit-keyframes line-height{
+from{line-height:10px}
+to{line-height:300px}}
+#line-height { -webkit-animation: line-height 1s infinite alternate;line-height:10px}
+@-webkit-keyframes opacity{
+from{opacity:1}
+to{opacity:0}}
+#opacity { -webkit-animation: opacity 1s infinite alternate;opacity:1}
+@-webkit-keyframes outline-width{
+from{outline-width:0}
+to{outline-width:100px}}
+#outline-width { -webkit-animation: outline-width 1s infinite alternate;outline-width:0}
+@-webkit-keyframes outline-offset{
+from{outline-offset:-5px}
+to{outline-offset:30px}}
+#outline-offset { -webkit-animation: outline-offset 1s infinite alternate;outline-offset:-5px}
+@-webkit-keyframes outline-color{
+from{outline-color:transparent}
+to{outline-color:red}}
+#outline-color { -webkit-animation: outline-color 1s infinite alternate;outline-color:transparent}
+@-webkit-keyframes padding{
+from{padding:0}
+to{padding:50px 200px 50px 50px}}
+#padding { -webkit-animation: padding 1s infinite alternate;padding:0}
+@-webkit-keyframes text-indent{
+from{text-indent:0}
+to{text-indent:100px}}
+#text-indent { -webkit-animation: text-indent 1s infinite alternate;text-indent:0}
+@-webkit-keyframes text-shadow{
+from{text-shadow:0 0 black}
+to{text-shadow:20px 20px 10px rgba(0,0,0,.5)}}
+#text-shadow { -webkit-animation: text-shadow 1s infinite alternate;text-shadow:0 0 black}
+@-webkit-keyframes text-shadow-2{
+from{text-shadow:0 0 0 white}
+to{text-shadow:0 0 10px white}}
+#text-shadow\/2 { -webkit-animation: text-shadow-2 1s infinite alternate;text-shadow:0 0 0 white}
+@-webkit-keyframes text-shadow-3
+{
+	from
+	{
+		text-shadow:0 0 white
+	}
+	to
+	{
+		text-shadow:0 0 rgba(255,255,255,0), -45px -45px 0 red, -30px -30px 0 orange, -15px -15px 0 yellow, 0 0 0 green, 15px 15px 0 blue, 30px 30px 0 indigo, 45px 45px 0 violet
+	}
+}
+#text-shadow\/3 { -webkit-animation: text-shadow-3 1s infinite alternate;text-shadow:0 0 white}
+@-webkit-keyframes top{
+from{top:0}
+to{top:100px}}
+#top { -webkit-animation: top 1s infinite alternate;top:0}
+@-webkit-keyframes transform{
+from{-webkit-transform:rotate(0deg)}
+to{-webkit-transform:rotate(360deg)}}
+#transform { -webkit-animation: transform 1s infinite alternate;-webkit-transform:rotate(0deg)}
+@-webkit-keyframes transform-2{
+from{-webkit-transform:scale(1)}
+to{-webkit-transform:scale(2)}}
+#transform\/2 { -webkit-animation: transform-2 1s infinite alternate;-webkit-transform:scale(1)}
+@-webkit-keyframes transform-3{
+from{-webkit-transform:skewX(0deg)}
+to{-webkit-transform:skewX(180deg)}}
+#transform\/3 { -webkit-animation: transform-3 1s infinite alternate;-webkit-transform:skewX(0deg)}
+@-webkit-keyframes transform-4{
+from{-webkit-transform:rotate(0deg) scale(1)}
+to{-webkit-transform:rotate(360deg) scale(0)}}
+#transform\/4 { -webkit-animation: transform-4 1s infinite alternate;-webkit-transform:rotate(0deg) scale(1)}
+@-webkit-keyframes transform-5{
+from{-webkit-transform:perspective(400px) rotateY(0deg)}
+to{-webkit-transform:perspective(400px) rotateY(360deg)}}
+#transform\/5 { -webkit-animation: transform-5 1s infinite alternate;-webkit-transform:perspective(400px) rotateY(0deg)}
+@-webkit-keyframes transform-6{
+from{-webkit-transform:perspective(400px) rotateX(0deg)}
+to{-webkit-transform:perspective(400px) rotateX(360deg)}}
+#transform\/6 { -webkit-animation: transform-6 1s infinite alternate;-webkit-transform:perspective(400px) rotateX(0deg)}
+@-webkit-keyframes transform-7{
+from{-webkit-transform:perspective(400px) rotateY(0deg)}
+to{-webkit-transform:perspective(400px) translateZ(150px) rotateY(180deg)}}
+#transform\/7 { -webkit-animation: transform-7 1s infinite alternate;-webkit-transform:perspective(400px) rotateY(0deg)}
+@-webkit-keyframes transform-8{
+from{-webkit-transform:perspective(400px) translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0)}
+to{-webkit-transform:perspective(400px) translate3d(0,0,-5000px) rotateX(720deg) rotateY(360deg) rotateZ(-360deg)}}
+#transform\/8 { -webkit-animation: transform-8 1s infinite alternate;-webkit-transform:perspective(400px) translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0)}
+@-webkit-keyframes transform-9{
+from{-webkit-transform:perspective(400px) rotate3d(1,1,0,0deg)}
+to{-webkit-transform:perspective(400px) rotate3d(1,1,0,180deg)}}
+#transform\/9 { -webkit-animation: transform-9 1s infinite alternate;-webkit-transform:perspective(400px) rotate3d(1,1,0,0deg)}
+@-webkit-keyframes transform-10{
+from{-webkit-transform:perspective(400px) rotate3d(0,1,0,0deg)}
+to{-webkit-transform:perspective(400px) rotate3d(0,1,0,-180deg)}}
+#transform\/10 { -webkit-animation: transform-10 1s infinite alternate;-webkit-transform:perspective(400px) rotate3d(0,1,0,0deg)}
+@-webkit-keyframes transform-origin{
+from{-webkit-transform-origin:50% 50%}
+to{-webkit-transform-origin:0 100%}}
+#transform-origin { -webkit-animation: transform-origin 1s infinite alternate;-webkit-transform-origin:50% 50%}
+@-webkit-keyframes width{
+from{width:150px}
+to{width:330px}}
+#width { -webkit-animation: width 1s infinite alternate;width:150px}</style></head>
+<body data-twttr-rendered="true" class="home">
+
+<hgroup>
+	<h1><a href="http://leaverou.github.com/animatable/#">Animatable</a></h1>
+	<h2>One property, two values, endless possiblities</h2>
+</hgroup>
+
+<input type="radio" name="animate" id="on-hover" checked="">
+<label for="on-hover">Animate on hover</label>
+<input type="radio" name="animate" id="all">
+<label for="all">Animate all</label>
+
+<div role="main">
+	<a data-property="background-color" data-from="slategray" data-to="black" id="background-color" href="http://leaverou.github.com/animatable/#background-color" title="background-color from slategray to black"></a>
+	<a data-property="background-position" data-from="0 0" data-to="100% 100%" style="background-image: -webkit-linear-gradient(135deg, transparent 25%, black 25%, black 50%, transparent 50%, transparent 75%, black 75%, black); background-size:50px 50px" id="background-position" href="http://leaverou.github.com/animatable/#background-position" title="background-position from 0 0 to 100% 100%"></a>
+	<a data-property="background-position" data-from="3px 0, 3px 0, 15px -150px, 15px -150px" data-to="3px -70px, 3px -70px, 15px -80px, 15px -80px" style="background-color: #E04332; background-repeat: repeat-x; background-size: 24px 300px; background-image: -webkit-linear-gradient(135deg, slategray 25%, transparent 25%), -webkit-linear-gradient(45deg, transparent 75%, slategray 75%), -webkit-linear-gradient(45deg, slategray 25%, transparent 25%), -webkit-linear-gradient(135deg, transparent 75%, slategray 75%);" data-author="kizmarh" id="background-position/2" href="http://leaverou.github.com/animatable/#background-position/2" title="background-position from 3px 0, 3px 0, 15px -150px, 15px -150px to 3px -70px, 3px -70px, 15px -80px, 15px -80px"></a>
+	<a data-property="background-size" data-from="5px 5px" data-to="150px 150px" style="background-image: -webkit-repeating-radial-gradient(transparent, transparent 9px, black 11px, black 20px); background-position:center" id="background-size" href="http://leaverou.github.com/animatable/#background-size" title="background-size from 5px 5px to 150px 150px"></a>
+	<a data-property="border-radius" data-from="0" data-to="50%" id="border-radius" href="http://leaverou.github.com/animatable/#border-radius" title="border-radius from 0 to 50%"></a>
+	<a data-property="border-radius" data-from="0 100%" data-to="100% 0" id="border-radius/2" href="http://leaverou.github.com/animatable/#border-radius/2" title="border-radius from 0 100% to 100% 0"></a>
+	<a data-property="border-width" data-from="0" data-to="75px" style="border-style:solid; border-color: black;" id="border-width" href="http://leaverou.github.com/animatable/#border-width" title="border-width from 0 to 75px"></a>
+	<a data-property="border-width" data-from="0" data-to="35px" style="border-style:dashed; border-color: black;" id="border-width/2" href="http://leaverou.github.com/animatable/#border-width/2" title="border-width from 0 to 35px"></a>
+	<a data-property="border-width" data-from="0" data-to="75px" style="border-style:double; border-color: black;" id="border-width/3" href="http://leaverou.github.com/animatable/#border-width/3" title="border-width from 0 to 75px"></a>
+	<a data-property="box-shadow" data-from="0 0 black" data-to="0 150px 10px -50px rgba(0,0,0,.5)" id="box-shadow" href="http://leaverou.github.com/animatable/#box-shadow" title="box-shadow from 0 0 black to 0 150px 10px -50px rgba(0,0,0,.5)"></a>
+	<a data-property="box-shadow" data-from="none" data-to="inset -75px -75px 400px #000" data-author="yuritkachenko" id="box-shadow/2" href="http://leaverou.github.com/animatable/#box-shadow/2" title="box-shadow from none to inset -75px -75px 400px #000"></a>
+	<a data-property="box-shadow" data-from="inset 0 0 75px 75px slategray, 0 0 0 slategray" data-to="inset 0 0 35px 35px transparent, 0 0 75px 50px transparent" style="background: transparent; border-radius: 1px;" data-author="kizmarh" id="box-shadow/3" href="http://leaverou.github.com/animatable/#box-shadow/3" title="box-shadow from inset 0 0 75px 75px slategray, 0 0 0 slategray to inset 0 0 35px 35px transparent, 0 0 75px 50px transparent"></a>
+	<a data-property="color" data-from="white" data-to="black" id="color" href="http://leaverou.github.com/animatable/#color" title="color from white to black"></a>
+	<a data-property="font-size" data-from="60px" data-to="300px" id="font-size" href="http://leaverou.github.com/animatable/#font-size" title="font-size from 60px to 300px"></a>
+	<a data-property="height" data-from="150px" data-to="0" id="height" href="http://leaverou.github.com/animatable/#height" title="height from 150px to 0"></a>
+	<a data-property="letter-spacing" data-from="0" data-to="100px" id="letter-spacing" href="http://leaverou.github.com/animatable/#letter-spacing" title="letter-spacing from 0 to 100px"></a>
+	<a data-property="line-height" data-from="10px" data-to="300px" id="line-height" href="http://leaverou.github.com/animatable/#line-height" title="line-height from 10px to 300px"></a>
+	<a data-property="opacity" data-from="1" data-to="0" id="opacity" href="http://leaverou.github.com/animatable/#opacity" title="opacity from 1 to 0"></a>
+	<a data-property="outline-width" data-from="0" data-to="100px" style="outline-color:black; outline-style: solid;" id="outline-width" href="http://leaverou.github.com/animatable/#outline-width" title="outline-width from 0 to 100px"></a>
+	<a data-property="outline-offset" data-from="-5px" data-to="30px" style="outline-style: dashed; outline-color:slategray;" data-author="mkuehnel" id="outline-offset" href="http://leaverou.github.com/animatable/#outline-offset" title="outline-offset from -5px to 30px"></a>
+	<a data-property="outline-color" data-from="transparent" data-to="red" style="outline-width: 30px; outline-style: solid;" data-author="mkuehnel" id="outline-color" href="http://leaverou.github.com/animatable/#outline-color" title="outline-color from transparent to red"></a>
+	<a data-property="padding" data-from="0" data-to="50px 200px 50px 50px" data-author="steno" id="padding" href="http://leaverou.github.com/animatable/#padding" title="padding from 0 to 50px 200px 50px 50px"></a>
+	<a data-property="text-indent" data-from="0" data-to="100px" id="text-indent" href="http://leaverou.github.com/animatable/#text-indent" title="text-indent from 0 to 100px"></a>
+	<a data-property="text-shadow" data-from="0 0 black" data-to="20px 20px 10px rgba(0,0,0,.5)" id="text-shadow" href="http://leaverou.github.com/animatable/#text-shadow" title="text-shadow from 0 0 black to 20px 20px 10px rgba(0,0,0,.5)"></a>
+	<a data-property="text-shadow" data-from="0 0 0 white" data-to="0 0 10px white" style="color: transparent;" data-author="bartaz" id="text-shadow/2" href="http://leaverou.github.com/animatable/#text-shadow/2" title="text-shadow from 0 0 0 white to 0 0 10px white"></a>
+	<a data-property="text-shadow" data-from="0 0 white" data-to="0 0 rgba(255,255,255,0), -45px -45px 0 red, -30px -30px 0 orange, -15px -15px 0 yellow, 0 0 0 green, 15px 15px 0 blue, 30px 30px 0 indigo, 45px 45px 0 violet" style="color: transparent" data-author="kizmarh" id="text-shadow/3" href="http://leaverou.github.com/animatable/#text-shadow/3" title="text-shadow from 0 0 white to 0 0 rgba(255,255,255,0), -45px -45px 0 red, -30px -30px 0 orange, -15px -15px 0 yellow, 0 0 0 green, 15px 15px 0 blue, 30px 30px 0 indigo, 45px 45px 0 violet"></a>
+	<a data-property="top" data-from="0" data-to="100px" style="position:relative" id="top" href="http://leaverou.github.com/animatable/#top" title="top from 0 to 100px"></a>
+	<a data-property="transform" data-from="rotate(0deg)" data-to="rotate(360deg)" id="transform" href="http://leaverou.github.com/animatable/#transform" title="transform from rotate(0deg) to rotate(360deg)"></a>
+	<a data-property="transform" data-from="scale(1)" data-to="scale(2)" id="transform/2" href="http://leaverou.github.com/animatable/#transform/2" title="transform from scale(1) to scale(2)"></a>
+	<a data-property="transform" data-from="skewX(0deg)" data-to="skewX(180deg)" id="transform/3" href="http://leaverou.github.com/animatable/#transform/3" title="transform from skewX(0deg) to skewX(180deg)"></a>
+	<a data-property="transform" data-from="rotate(0deg) scale(1)" data-to="rotate(360deg) scale(0)" id="transform/4" href="http://leaverou.github.com/animatable/#transform/4" title="transform from rotate(0deg) scale(1) to rotate(360deg) scale(0)"></a>
+	<a data-property="transform" data-from="perspective(400px) rotateY(0deg)" data-to="perspective(400px) rotateY(360deg)" id="transform/5" href="http://leaverou.github.com/animatable/#transform/5" title="transform from perspective(400px) rotateY(0deg) to perspective(400px) rotateY(360deg)"></a>
+	<a data-property="transform" data-from="perspective(400px) rotateX(0deg)" data-to="perspective(400px) rotateX(360deg)" data-author="calvein" id="transform/6" href="http://leaverou.github.com/animatable/#transform/6" title="transform from perspective(400px) rotateX(0deg) to perspective(400px) rotateX(360deg)"></a>
+	<a data-property="transform" data-from="perspective(400px) rotateY(0deg)" data-to="perspective(400px) translateZ(150px) rotateY(180deg)" data-author="bartaz" id="transform/7" href="http://leaverou.github.com/animatable/#transform/7" title="transform from perspective(400px) rotateY(0deg) to perspective(400px) translateZ(150px) rotateY(180deg)"></a>
+	<a data-property="transform" data-from="perspective(400px) translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0)" data-to="perspective(400px) translate3d(0,0,-5000px) rotateX(720deg) rotateY(360deg) rotateZ(-360deg)" data-author="bartaz" id="transform/8" href="http://leaverou.github.com/animatable/#transform/8" title="transform from perspective(400px) translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0) to perspective(400px) translate3d(0,0,-5000px) rotateX(720deg) rotateY(360deg) rotateZ(-360deg)"></a>
+	<a data-property="transform" data-from="perspective(400px) rotate3d(1,1,0,0deg)" data-to="perspective(400px) rotate3d(1,1,0,180deg)" data-author="bartaz" id="transform/9" href="http://leaverou.github.com/animatable/#transform/9" title="transform from perspective(400px) rotate3d(1,1,0,0deg) to perspective(400px) rotate3d(1,1,0,180deg)"></a>
+	<a data-property="transform" data-from="perspective(400px) rotate3d(0,1,0,0deg)" data-to="perspective(400px) rotate3d(0,1,0,-180deg)" data-author="filipearaujo" style="-webkit-transform-origin: 100% 50%;" id="transform/10" href="http://leaverou.github.com/animatable/#transform/10" title="transform from perspective(400px) rotate3d(0,1,0,0deg) to perspective(400px) rotate3d(0,1,0,-180deg)"></a>
+	<a data-property="transform-origin" data-from="50% 50%" data-to="0 100%" style="-webkit-transform:rotate(45deg)" id="transform-origin" href="http://leaverou.github.com/animatable/#transform-origin" title="transform-origin from 50% 50% to 0 100%"></a>
+	<a data-property="width" data-from="150px" data-to="330px" data-author="mkuehnel" id="width" href="http://leaverou.github.com/animatable/#width" title="width from 150px to 330px"></a>
+</div>
+
+<section id="info">
+	<h1>box-shadow</h1>
+	<a href="http://leaverou.github.com/animatable/#" title="Previous">◀</a>
+	<a href="http://leaverou.github.com/animatable/#" title="Next">▶</a>
+	<dl>
+		<dt>From:</dt>
+		<dd>0 0 black</dd>
+		
+		<dt>To:</dt>
+		<dd>0 150px 10px -50px rgba(0,0,0,.5)</dd>
+		
+		<dt>Author:</dt>
+		<dd>@leaverou</dd>
+	</dl>
+</section>
+
+<footer>Made by <a href="http://leaverou.me/">Lea Verou</a> with care</footer>
+
+<script src="index.js"></script>
+<script src="widgets.js"></script>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,414 @@
+<html>
+<head>
+<title>CodePeriscope</title>
+<link rel='shortcut icon' type='image/x-icon' href='psi.ico' />
+<link rel='stylesheet' href='lib/codemirror.css' />
+<style>
+*
+{
+	margin: 0px;
+	padding: 0px;
+}
+.but
+{
+	width: 2%;
+	height: 100%;
+	float: left;
+}
+.con
+{
+	width: 0%;
+	height: 100%; 
+	float: left; 
+	overflow: scroll;
+}
+.nav
+{
+	width: 100%;
+	height: 100%; 
+}
+#preview
+{
+	width: 100%;
+	height: 100%;
+}
+</style>
+<link rel="stylesheet" href="lib/theme/neat.css" />
+<link rel="stylesheet" href="lib/theme/elegant.css" />
+<link rel="stylesheet" href="lib/theme/erlang-dark.css" />
+<link rel="stylesheet" href="lib/theme/night.css" />
+<link rel="stylesheet" href="lib/theme/monokai.css" />
+<link rel="stylesheet" href="lib/theme/cobalt.css" />
+<link rel="stylesheet" href="lib/theme/eclipse.css" />
+<link rel="stylesheet" href="lib/theme/rubyblue.css" />
+<link rel="stylesheet" href="lib/theme/lesser-dark.css" />
+<link rel="stylesheet" href="lib/theme/xq-dark.css" />
+<link rel="stylesheet" href="lib/theme/ambiance.css" />
+<link rel="stylesheet" href="lib/theme/blackboard.css" />
+<script src='lib/jquery.plus.js'></script>
+<script src='lib/codemirror.js'></script>
+<script src='lib/emmet.js'></script>
+
+    <script src="lib/util/searchcursor.js"></script>
+    <script src="lib/util/match-highlighter.js"></script>
+
+
+
+
+
+<script src='lib/mode/clike.js'></script>
+<script src='lib/mode/clojure.js'></script>
+<script src='lib/mode/coffeescript.js'></script>
+<script src='lib/mode/css.js'></script>
+<script src='lib/mode/diff.js'></script>
+<script src='lib/mode/ecl.js'></script>
+<script src='lib/mode/erlang.js'></script>
+<script src='lib/mode/gfm.js'></script>
+<script src='lib/mode/go.js'></script>
+<script src='lib/mode/groovy.js'></script>
+<script src='lib/mode/haskell.js'></script>
+<script src='lib/mode/htmlembedded.js'></script>
+<script src='lib/mode/htmlmixed.js'></script>
+<script src='lib/mode/javascript.js'></script>
+<script src='lib/mode/jinja2.js'></script>
+<script src='lib/mode/less.js'></script>
+<script src='lib/mode/lua.js'></script>
+<script src='lib/mode/markdown.js'></script>
+<script src='lib/mode/mysql.js'></script>
+<script src='lib/mode/ntriples.js'></script>
+<script src='lib/mode/pascal.js'></script>
+<script src='lib/mode/perl.js'></script>
+<script src='lib/mode/php.js'></script>
+<script src='lib/mode/pig.js'></script>
+<script src='lib/mode/plsql.js'></script>
+<script src='lib/mode/properties.js'></script>
+<script src='lib/mode/python.js'></script>
+<script src='lib/mode/r.js'></script>
+<script src='lib/mode/rpm-changes.js'></script>
+<script src='lib/mode/rpm-spec.js'></script>
+<script src='lib/mode/rst.js'></script>
+<script src='lib/mode/ruby.js'></script>
+<script src='lib/mode/rust.js'></script>
+<script src='lib/mode/scheme.js'></script>
+<script src='lib/mode/shell.js'></script>
+<script src='lib/mode/smalltalk.js'></script>
+<script src='lib/mode/smarty.js'></script>
+<script src='lib/mode/sparql.js'></script>
+<script src='lib/mode/stex.js'></script>
+<script src='lib/mode/tiddlywiki.js'></script>
+<script src='lib/mode/tiki.js'></script>
+<script src='lib/mode/vbscript.js'></script>
+<script src='lib/mode/velocity.js'></script>
+<script src='lib/mode/verilog.js'></script>
+<script src='lib/mode/xml.js'></script>
+<script src='lib/mode/xquery.js'></script>
+<script src='lib/mode/yaml.js'></script>
+<script>
+$(function()
+{
+	var s = 38
+	$('#find_button').toggle
+	(
+		function()
+		{	
+			$('#find').children('.con').animate({width: '00%'}, 500)
+			if ($('#edit').children('.con').css('width') != '0px' && $('#view').children('.con').css('width') != '0px')
+			{
+				$('#edit').children('.con').animate({width: (s+9)+'%'}, 500)	
+				$('#view').children('.con').animate({width: (s+9)+'%'}, 500)	
+			}
+			else if ($('#edit').children('.con').css('width') != '0px')
+			{
+				$('#edit').children('.con').animate({width: ((s+9)*2)+'%'}, 500)
+			}
+			else if ($('#view').children('.con').css('width') != '0px')
+			{
+				$('#view').children('.con').animate({width: ((s+9)*2)+'%'}, 500)
+			}
+		},
+		function()
+		{	
+			$('#find').children('.con').animate({width: (s-20)+'%'}, 500)
+			if ($('#edit').children('.con').css('width') != '0px' && $('#view').children('.con').css('width') != '0px')
+			{
+				$('#edit').children('.con').animate({width: (s)+'%'}, 500)
+				$('#view').children('.con').animate({width: (s)+'%'}, 500)
+			}					
+			else if ($('#edit').children('.con').css('width') != '0px')
+			{
+				$('#edit').children('.con').animate({width: (s*2)+'%'}, 500)
+			}
+			else if ($('#view').children('.con').css('width') != '0px')
+			{
+				$('#view').children('.con').animate({width: (s*2)+'%'}, 500)
+			}
+		}
+	)
+	$('#edit_button').toggle
+	(
+		function()
+		{	
+			if ($('#find').children('.con').css('width') == '0px')
+			{
+				$('#edit').children('.con').animate({width: ((s+9)*2)+'%'}, 500)	
+				$('#view').children('.con').animate({width: '00%'}, 500)				
+			}
+			else
+			{
+				$('#edit').children('.con').animate({width: ((s)*2)+'%'}, 500)
+				$('#view').children('.con').animate({width: '00%'}, 500)
+			}
+		},
+		function()
+		{	
+			if ($('#find').children('.con').css('width') == '0px')
+			{
+				$('#edit').children('.con').animate({width: (s+9)+'%'}, 500)	
+				$('#view').children('.con').animate({width: (s+9)+'%'}, 500)
+			}
+			else
+			{
+				$('#edit').children('.con').animate({width: (s)+'%'}, 500)
+				$('#view').children('.con').animate({width: (s)+'%'}, 500)
+			}
+		}
+	)			
+	$('#view_button').toggle
+	(
+		function()
+		{	
+			if ($('#find').children('.con').css('width') == '0px')
+			{
+				$('#edit').children('.con').animate({width: '00%'}, 500)	
+				$('#view').children('.con').animate({width: ((s+9)*2)+'%'}, 500)		
+			}
+			else
+			{
+				$('#edit').children('.con').animate({width: '00%'}, 500)
+				$('#view').children('.con').animate({width: ((s)*2)+'%'}, 500)
+			}
+		},
+		function()
+		{	
+			if ($('#find').children('.con').css('width') == '0px')
+			{
+				$('#edit').children('.con').animate({width: (s+9)+'%'}, 500)	
+				$('#view').children('.con').animate({width: (s+9)+'%'}, 500)
+			}
+			else
+			{
+				$('#edit').children('.con').animate({width: (s)+'%'}, 500)
+				$('#view').children('.con').animate({width: (s)+'%'}, 500)
+			}
+		}
+	)
+	$('#find').children('.con').animate({width: '18%'}, 500)
+	$('#edit').children('.con').animate({width: '38%'}, 500)
+	$('#view').children('.con').animate({width: '38%'}, 500)
+
+	editor = CodeMirror.fromTextArea(document.getElementById('code'), 
+	{
+		mode: 			'text/html',
+		autofocus: 		true,
+		lineNumbers: 	true,
+		tabMode: 		'indent',
+		tabSize: 		4,
+		indentUnit: 	4,
+		indentWithTabs: true,
+		matchBrackets: true,
+		onChange: function()
+		{
+			previewFrame = document.getElementById('preview')
+			preview = previewFrame.contentDocument || previewFrame.contentWindow.document
+			preview.open()
+			preview.write(editor.getValue())
+			preview.close()
+		}
+	})
+	editor.on("cursorActivity", function(){editor.matchHighlight("CodeMirror-matchhighlight")})
+
+	$("#selectmode").change(function(){editor.setOption("mode", $(this).val())})
+	$("#selectmode").change()
+	$("#selecttheme").change(function(){editor.setOption("theme", $(this).val())})
+	$("#selecttheme").change()
+})
+</script>
+</head>
+<body>
+	<div id='left'>
+		<div id='find'>
+			<div class='but'>
+				<button class='nav' id='find_button'></button>
+			</div>
+			<div class='con'>
+				<select id='selectmode'>
+					<option>clike</option>
+					<option>clojure</option>
+					<option>coffeescript</option>
+					<option>css</option>
+					<option>diff</option>
+					<option>ecl</option>
+					<option>erlang</option>
+					<option>gfm</option>
+					<option>go</option>
+					<option>groovy</option>
+					<option>haskell</option>
+					<option>htmlembedded</option>
+					<option selected>htmlmixed</option>
+					<option>javascript</option>
+					<option>jinja2</option>
+					<option>less</option>
+					<option>lua</option>
+					<option>markdown</option>
+					<option>mysql</option>
+					<option>ntriples</option>
+					<option>pascal</option>
+					<option>perl</option>
+					<option>php</option>
+					<option>pig</option>
+					<option>plsql</option>
+					<option>properties</option>
+					<option>python</option>
+					<option>r</option>
+					<option>rpm-changes</option>
+					<option>rpm-spec</option>
+					<option>rst</option>
+					<option>ruby</option>
+					<option>rust</option>
+					<option>scheme</option>
+					<option>shell</option>
+					<option>smalltalk</option>
+					<option>smarty</option>
+					<option>sparql</option>
+					<option>stex</option>
+					<option>tiddlywiki</option>
+					<option>tiki</option>
+					<option>vbscript</option>
+					<option>velocity</option>
+					<option>verilog</option>
+					<option>xml</option>
+					<option>xquery</option>
+					<option>yaml</option>
+				</select>
+				<select id="selecttheme">
+					<option selected>default</option>
+					<option>ambiance</option>
+					<option>blackboard</option>
+					<option>cobalt</option>
+					<option>eclipse</option>
+					<option>elegant</option>
+					<option>erlang-dark</option>
+					<option>lesser-dark</option>
+					<option>monokai</option>
+					<option>neat</option>
+					<option>night</option>
+					<option>rubyblue</option>
+					<option>xq-dark</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div id='right'>
+		<div id='edit'>
+			<div class='but'>
+				<button class='nav' id='edit_button'></button>
+			</div>
+			<div class='con'>
+<form><textarea name='code' id='code'>
+<!doctype html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>HTML5 canvas demo</title>
+		<style>
+			*
+			{
+				padding: 0px;
+				margin: 0px; 
+			}
+			body
+			{
+				height: 100%;
+				width: 100%; 
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id='pane' width='500' height='1000'></canvas>
+		<script>
+			var canvas = document.getElementById('pane')
+			var context = canvas.getContext('2d')
+			
+			draw(250, 250)
+
+			function clear()
+			{
+				context.clearRect(0, 0, canvas.width, canvas.height);	
+			}
+			function draw(x, y)
+			{
+				circle(x-100, y, 100, 5, "", 'rgba(250, 0, 0, 0.5)');
+				circle(x, y-100, 100, 5, "", 'rgba(0, 0, 0, 0.5)');
+				circle(x, y+100, 100, 5, "", 'rgba(0, 250, 0, 0.5)');
+				circle(x+100, y, 100, 5, "", 'rgba(0, 0, 250, 0.5)');
+				circle(x-70, y-70, 100, 5, "", 'rgba(250, 0, 250, 0.5)');
+				circle(x+70, y+70, 100, 5, "", 'rgba(250, 250, 0, 0.5)');
+				circle(x-70, y+70, 100, 5, "", 'rgba(0, 250, 250, 0.5)');
+				circle(x+70, y-70, 100, 5, "", 'rgba(250, 250, 250, 0.5)');
+				
+				circle(x-100, y, 100, 5, "black");
+				circle(x, y-100, 100, 5, "black");
+				circle(x, y+100, 100, 5, "black");
+				circle(x+100, y, 100, 5, "black");
+				circle(x-70, y-70, 100, 5, "black");
+				circle(x-70, y+70, 100, 5, "black");
+				circle(x+70, y-70, 100, 5, "black");
+				circle(x+70, y+70, 100, 5, "black");				
+			}
+			function square(x, y, e, w, c, f)
+			{
+				if (c == "")
+				{
+					c = 'rgba(0, 0, 0, 0)'
+				}
+				context.beginPath()
+				context.rect(x, y, e, e)
+				context.lineWidth = w
+				context.strokeStyle = c
+				context.stroke()
+				if (f)
+				{
+					context.fillStyle = f
+					context.fillRect(x, y, e, e)	
+				}
+			}
+			function circle(x, y, r, w, c, f)
+			{
+				context.beginPath();
+				context.arc(x, y, r, Math.PI, -Math.PI, false);
+				context.lineWidth = w;	
+				if (f)
+				{
+					context.fillStyle = f
+					context.fill();
+				}
+				context.strokeStyle = c;
+				context.stroke();	
+			}
+		</script>
+	</body>
+</html>
+</textarea></form>
+			</div>
+		</div>
+		<div id='view'>
+			<div class='but'>
+				<button class='nav' id='view_button'></button>
+			</div>
+			<div class='con'>
+<iframe name='preview' id='preview'></iframe>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
