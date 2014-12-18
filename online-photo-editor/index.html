@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://ondras.zarovi.cz/demos/photo/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Online photo editor</title>
+	<script src="promise.js"></script>
+	<script src="promise-addons.js"></script>
+	<script src="app.js"></script>
+	<script src="preview.js"></script>
+	<script src="photo.js"></script>
+	<script src="action.js"></script>
+	<script src="action-open.js"></script>
+	<script src="action-invert.js"></script>
+	<script src="action-linear.js"></script>
+	<script src="action-gray.js"></script>
+	<script src="action-scale.js"></script>
+	<script src="action-histogram.js"></script>
+	<script src="action-normalize.js"></script>
+	<script src="action-balance.js"></script>
+	<script src="action-crop.js"></script>
+	<script src="action-save.js"></script>
+	<script src="ui.js"></script>
+	<script src="ui-open.js"></script>
+	<script src="ui-invert.js"></script>
+	<script src="ui-linear.js"></script>
+	<script src="ui-gray.js"></script>
+	<script src="ui-scale.js"></script>
+	<script src="ui-normalize.js"></script>
+	<script src="ui-balance.js"></script>
+	<script src="ui-crop.js"></script>
+	<script src="ui-save.js"></script>
+	<script src="slider.js"></script>
+	<script src="selection.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="tools">
+		<select id="actions" size="2">
+			<option value="">Available actions</option>
+			<optgroup label="I/O">
+				<option value="open">Open image</option>
+				<option value="save">Save image</option>
+			</optgroup>
+			<optgroup label="Geometry">
+				<option value="scale">Scale</option>
+				<option value="crop">Crop</option>
+			</optgroup>
+			<optgroup label="Colors">
+				<option value="linear">Adjust levels</option>
+				<option value="gray">Grayscale</option>
+				<option value="balance">Color balance</option>
+				<option value="normalize">Normalize</option>
+				<option value="invert">Invert</option>
+			</optgroup>
+		</select><select size="2" class="history"><option>History</option><option>Open image</option></select>
+		<div id="config"><h2>Invert</h2><label><input type="checkbox"> Red</label><label><input type="checkbox"> Green</label><label><input type="checkbox"> Blue</label><button class="apply">Apply</button></div>
+	</div>
+
+	<div id="preview"><div style="position: absolute; left: 140px; top: 71px;"><canvas title="(ctrl-wheel or shift-wheel to zoom)" width="683" height="506"></canvas></div><div id="zoom">67%</div></div>
+	<div id="throbber" style="display: none;">Inverting...</div>
+
+	<script>
+		App.init();
+	</script>
+
+
+</body>
+s</html>
